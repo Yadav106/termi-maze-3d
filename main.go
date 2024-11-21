@@ -11,5 +11,6 @@ var gameMap Map
 var showDetails bool
 
 func main() {
-  fmt.Println("Hello, World!")
+  gameMap.init()
+  fmt.Println(gameMap)
 }
