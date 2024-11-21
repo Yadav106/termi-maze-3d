@@ -15,10 +15,10 @@ type Player struct {
 }
 
 func (player *Player) init() {
-	// player.x = 13.0
-	// player.y = 1.0
-  player.y = 30.0
-  player.x = 12.0
+	player.x = 13.0
+	player.y = 1.0
+  // player.y = 30.0
+  // player.x = 12.0
 	player.angle = 0.0
 }
 
@@ -36,12 +36,15 @@ func (player *Player) move() {
 
 		switch string(char) {
 		case "q":
-			player.angle += 2 * elapsedTime
+			player.angle += 3 * elapsedTime
+			settings.showDetails = false
 
 		case "e":
-			player.angle -= 2 * elapsedTime
+			player.angle -= 3 * elapsedTime
+			settings.showDetails = false
 
 		case "a": // Move player left (adjust angle)
+			settings.showDetails = false
 			strafeA := player.angle - math.Pi/2
 			player.x -= math.Sin(strafeA) * 5.0 * elapsedTime
 			player.y -= math.Cos(strafeA) * 5.0 * elapsedTime
@@ -52,6 +55,7 @@ func (player *Player) move() {
 			}
 
 		case "d": // Move player right (adjust angle)
+			settings.showDetails = false
 			strafeA := player.angle + math.Pi/2
 			player.x -= math.Sin(strafeA) * 5.0 * elapsedTime
 			player.y -= math.Cos(strafeA) * 5.0 * elapsedTime
@@ -62,6 +66,7 @@ func (player *Player) move() {
 			}
 
 		case "w":
+			settings.showDetails = false
 			player.x += math.Sin(player.angle) * 5.0 * elapsedTime
 			player.y += math.Cos(player.angle) * 5.0 * elapsedTime
 
@@ -71,6 +76,7 @@ func (player *Player) move() {
 			}
 
 		case "s":
+			settings.showDetails = false
 			player.x -= math.Sin(player.angle) * 5.0 * elapsedTime
 			player.y -= math.Cos(player.angle) * 5.0 * elapsedTime
 

@@ -17,7 +17,6 @@ var screen Screen
 
 var openMapCount int = 0
 var won bool = false
-var won_screen string = returnWonScreen()
 
 var called_loop bool = false
 func loop_screen() {
@@ -168,13 +167,6 @@ func main() {
 			}
 
 			if !won {
-				// Display Stats
-				formattedString := fmt.Sprintf("X=%3.2f, Y=%3.2f, A=%3.2f FPS=%3.2f", player.x, player.y, player.angle, 1.0/elapsedTime)
-				for i, char := range formattedString {
-					if i < screen.width { // Ensure we don't exceed the screen width
-						buffer[i] = string(char)
-					}
-				}
 				if settings.showDetails {
 					// Display Stats
 					formattedString := fmt.Sprintf("Map opened %d times", openMapCount)
@@ -196,6 +188,7 @@ func main() {
 				}
 			} else {
 				// display win screen in center
+        won_screen := returnWonScreen(openMapCount)
 				offset_x := screen.width/2 - 50/2
 				offset_y := screen.width * (screen.height/2 - 8)
 				for y := 0; y < 17; y++ {

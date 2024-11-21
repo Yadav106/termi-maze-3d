@@ -12,6 +12,6 @@ type Settings struct {
 func (s *Settings) init() {
   s.FOV = -3.1415 / 4.0
   s.depth = 16
-  s.showDetails = false
+  s.showDetails = true
   s.sleepTime = time.Microsecond * 8000 * 2
 }
