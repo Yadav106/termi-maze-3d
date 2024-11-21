@@ -14,6 +14,12 @@ type Player struct {
 	angle float64
 }
 
+func (player *Player) init() {
+	player.x = 1.0
+	player.y = 1.0
+	player.angle = 0.0
+}
+
 func (player *Player) move() {
 	if err := keyboard.Open(); err != nil {
 		log.Fatal(err)
