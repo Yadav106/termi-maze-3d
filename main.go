@@ -1,16 +1,15 @@
 package main
 
-import "fmt"
-
 var elapsedTime float64
 var exitChan = make(chan bool)
 
 var player Player
 var gameMap Map
-
-var showDetails bool
+var settings Settings
+var screen Screen
 
 func main() {
   gameMap.init()
-  fmt.Println(gameMap)
+  settings.init()
+  screen.init()
 }

@@ -72,7 +72,7 @@ func (player *Player) move() {
 			}
 
 		case "m":
-			showDetails = !showDetails
+			settings.showDetails = !settings.showDetails
 
 		case "c": // Exit the game
 			fmt.Println("Exiting...")
