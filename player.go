@@ -15,8 +15,10 @@ type Player struct {
 }
 
 func (player *Player) init() {
-	player.x = 13.0
-	player.y = 1.0
+	// player.x = 13.0
+	// player.y = 1.0
+  player.y = 30.0
+  player.x = 12.0
 	player.angle = 0.0
 }
 
@@ -79,6 +81,9 @@ func (player *Player) move() {
 
 		case "m":
 			settings.showDetails = !settings.showDetails
+      if settings.showDetails == true {
+        openMapCount++
+      }
 
 		case "c": // Exit the game
 			fmt.Println("Exiting...")

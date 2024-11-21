@@ -15,11 +15,31 @@ var gameMap Map
 var settings Settings
 var screen Screen
 
+var openMapCount int = 0
+var won bool = false
+var won_screen string = returnWonScreen()
+
+var called_loop bool = false
+func loop_screen() {
+	// show looping animation
+	player.x = 15.0
+	player.y = 30.6
+	player.angle = 1.60
+
+  for {
+    player.x += 0.01
+    if player.x > 20.0 {
+      player.x = 15.0
+    }
+    time.Sleep(settings.sleepTime)
+  }
+}
+
 func main() {
 	gameMap.init()
 	settings.init()
 	screen.init()
-  player.init()
+	player.init()
 
 	go player.move()
 
@@ -46,6 +66,10 @@ func main() {
 				fDistanceToWall := 0.0
 				bHitWall := false
 				bBoundary := false
+
+				if int(player.y) == 30 && int(player.x) == 23 {
+					won = true
+				}
 
 				var fEyeX float64 = math.Sin(fRayAngle)
 				var fEyeY float64 = math.Cos(fRayAngle)
@@ -143,24 +167,49 @@ func main() {
 
 			}
 
-			if settings.showDetails {
+			if !won {
 				// Display Stats
-				formattedString := fmt.Sprintf("X=%3.2f, Y=%3.2f, A=%3.2f FPS=%3.2f", player.y, player.y, player.angle, 1.0/elapsedTime)
+				formattedString := fmt.Sprintf("X=%3.2f, Y=%3.2f, A=%3.2f FPS=%3.2f", player.x, player.y, player.angle, 1.0/elapsedTime)
 				for i, char := range formattedString {
 					if i < screen.width { // Ensure we don't exceed the screen width
 						buffer[i] = string(char)
 					}
 				}
+				if settings.showDetails {
+					// Display Stats
+					formattedString := fmt.Sprintf("Map opened %d times", openMapCount)
+					for i, char := range formattedString {
+						if i < screen.width { // Ensure we don't exceed the screen width
+							buffer[i] = string(char)
+						}
+					}
 
-				// Display Map
-				for nx := 0; nx < gameMap.width; nx++ {
-					for ny := 0; ny < gameMap.width; ny++ {
-						buffer[(ny+1)*screen.width+nx] = string(gameMap.gameMap[ny*gameMap.width+nx])
+					// Display Map
+					for nx := 0; nx < gameMap.width; nx++ {
+						for ny := 0; ny < gameMap.width; ny++ {
+							buffer[(ny+1)*screen.width+nx] = string(gameMap.gameMap[ny*gameMap.width+nx])
+						}
+					}
+
+					// Display Player
+					buffer[(int(player.y)+1)*screen.width+int(player.x)] = "P"
+				}
+			} else {
+				// display win screen in center
+				offset_x := screen.width/2 - 50/2
+				offset_y := screen.width * (screen.height/2 - 8)
+				for y := 0; y < 17; y++ {
+					for x := 0; x < 50; x++ {
+						buffer[offset_y+offset_x+y*screen.width+x] = string(won_screen[y*50+x])
 					}
 				}
 
-				// Display Player
-				buffer[(int(player.y)+1)*screen.width+int(player.x)] = "P"
+        // show looping screen at the end
+        if !called_loop {
+          go loop_screen()
+          called_loop = true
+        }
+
 			}
 
 			// Output the buffer to the screen
