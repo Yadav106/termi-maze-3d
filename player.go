@@ -15,7 +15,7 @@ type Player struct {
 }
 
 func (player *Player) init() {
-	player.x = 1.0
+	player.x = 13.0
 	player.y = 1.0
 	player.angle = 0.0
 }
@@ -34,10 +34,10 @@ func (player *Player) move() {
 
 		switch string(char) {
 		case "q":
-			player.angle += 1 * elapsedTime
+			player.angle += 2 * elapsedTime
 
 		case "e":
-			player.angle -= 1 * elapsedTime
+			player.angle -= 2 * elapsedTime
 
 		case "a": // Move player left (adjust angle)
 			strafeA := player.angle - math.Pi/2
