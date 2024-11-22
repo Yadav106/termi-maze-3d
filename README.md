@@ -54,7 +54,7 @@ Click the image to watch the playthrough
 the goal is to go from 's' to 'e'
 
 ## Principle Used
-This 2D map is converted into a 3D world using Ray Casting. Multiple rays are emitted from a source(the player here).
+This 2D map is converted into a 3D world using Ray Marching. Multiple rays are emitted from a source(the player here).
 The distances of walls are computed via these rays.
 The walls that are further away have more ceilings and floors in the 3D world.
 The closer walls have less ceiling and floor.
